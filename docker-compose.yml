@@ -1,0 +1,42 @@
+version: '3'
+services:
+  database:
+    container_name: naem_mysql
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_HOST=%
+    command:
+      - --character-set-server=utf8
+      - --collation-server=utf8_general_ci
+    ports:
+      - "${MYSQL_LOCAL_PORT}:${MYSQL_DOCKER_PORT}"
+    volumes:
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/data:/var/lib/mysql --user 1000
+    #      - ./db/initdb.d:/docker-entrypoint-initdb.d
+    restart: always
+    networks:
+      - test_network
+
+  application:
+    container_name: naem_app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "${SPRING_LOCAL_PORT}:${SPRING_DOCKER_PORT}"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database:${MYSQL_DOCKER_PORT}/${MYSQL_DATABASE}?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=${MYSQL_USER}
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    restart: always
+    depends_on:
+      - database
+    networks:
+      - test_network
+
+networks:
+  test_network:
+    driver: bridge
