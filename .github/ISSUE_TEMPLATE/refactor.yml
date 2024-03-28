@@ -1,6 +1,6 @@
-name: "Environment"
-description: "추가적인 환경설정이 필요한가요?"
-labels: "Environment"
+name: "Refactor"
+description: "리팩터링을 해야할 부분이 있나요?"
+labels: "Refactor"
 body:
   - type: textarea
     attributes:
