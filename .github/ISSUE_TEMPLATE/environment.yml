@@ -1,6 +1,6 @@
-name: "🌏 Environment"
+name: "🌏 environment"
 description: "추가적인 환경설정이 필요한가요?"
-labels: "🌏 Environment"
+labels: "🌏 environment"
 body:
   - type: textarea
     attributes:
