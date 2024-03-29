@@ -1,6 +1,6 @@
-name: "🔨 Refactor"
+name: "🔨 refactor"
 description: "리팩터링을 해야할 부분이 있나요?"
-labels: "🔨 Refactor"
+labels: "🔨 refactor"
 body:
   - type: textarea
     attributes:
