@@ -1,6 +1,6 @@
-name: "🙋‍♂️ Suggestion"
+name: "🙋‍♂️ suggestion"
 description: "팀원들과 논의할 내용이 있나요?"
-labels: "🙋‍♂️ Suggestion"
+labels: "🙋‍♂️ suggestion"
 body:
   - type: textarea
     attributes:
