@@ -1,6 +1,6 @@
-name: "\U0001F41E Bug"
+name: "\U0001F41E bug"
 description: "버그가 발생했나요?"
-labels: "\U0001F41E Bug"
+labels: "\U0001F41E bug"
 body:
   - type: textarea
     attributes:
