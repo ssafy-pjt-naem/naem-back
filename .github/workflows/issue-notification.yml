@@ -1,0 +1,22 @@
+name: GitHub Issue Notification
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  notify_mattermost:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Send notification to MatterMost
+        id : send-to-mattermost
+        if: github.event.label.name == '🙋‍♂️ suggestion'
+        env:
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+        run: |
+          ISSUE_TITLE=$(curl -sS "${{ github.event.issue.url }}" | jq -r '.title')
+          MESSAGE="🙋‍♂️ 새로운 이슈가 열렸어욥!!: $ISSUE_TITLE\n${{ github.event.issue.html_url }}"
+          curl -X POST -H "Content-type: application/json" --data "{\"text\":\"$MESSAGE\"}" $MATTERMOST_WEBHOOK_URL
