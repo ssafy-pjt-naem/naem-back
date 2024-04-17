@@ -28,8 +28,11 @@ public class Feed {
     @Column(length = 50)
     private Date updated;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Status status;
+
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Category category;
 
 }
