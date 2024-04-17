@@ -12,6 +12,9 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private MemberType membertype;
+
     @Column(nullable = false, length = 50)
     private String nickname;
     @Column(nullable = false, length = 50)
@@ -21,5 +24,12 @@ public class Member {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @Column
+    private String providerId;
+    @Column
+    private String username;
+    @Column
+    private String password;
 
 }
