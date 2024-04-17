@@ -4,5 +4,12 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        show_sql: true
-        format_sql: false
+        globally_quoted_identifiers: true
+        format_sql: true
+    open-in-view: true
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://${LOCAL_IP}:${MYSQL_LOCAL_PORT}/${MYSQL_LOCAL_DATABASE}?${MYSQL_OPTIONS}
+    username: ${MYSQL_LOCAL_USER}
+    password: ${MYSQL_LOCAL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
