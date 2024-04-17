@@ -8,6 +8,8 @@ spring:
         format_sql: true
     open-in-view: true
     show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
   datasource:
     url: jdbc:mysql://${LOCAL_IP}:${MYSQL_LOCAL_PORT}/${MYSQL_LOCAL_DATABASE}?${MYSQL_OPTIONS}
     username: ${MYSQL_LOCAL_USER}
