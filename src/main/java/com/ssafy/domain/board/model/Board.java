@@ -16,7 +16,8 @@ public class Board {
     private Date created;
     @Column(length = 50)
     private Date updated;
-    @Column(nullable = false)
-    private Status status;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }
