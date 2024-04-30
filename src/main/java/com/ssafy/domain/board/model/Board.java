@@ -1,9 +1,17 @@
 package com.ssafy.domain.board.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Builder
+@Getter
+@AllArgsConstructor
 public class Board {
 
     @Id
@@ -20,4 +28,19 @@ public class Board {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    public Board() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", created=" + created +
+                ", updated=" + updated +
+                ", status=" + status +
+                '}';
+    }
 }
