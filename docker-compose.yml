@@ -10,8 +10,8 @@ services:
     command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
     ports:
       - '3306:3306'
-    volumes:
-      - ./docker/data:/var/lib/mysql
+#    volumes:
+#      - ./docker/data:/var/lib/mysql
     restart: always
     networks:
       - test_network
