@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ssafy.naem.NaemApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-06-12T15:16:44" hostname="BOOK-GWANGMIN" time="0.424">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.ssafy.naem.NaemApplicationTests" time="0.424"/>
+  <system-out><![CDATA[00:16:38.343 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ssafy.naem.NaemApplicationTests]: NaemApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:16:38.456 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ssafy.naem.NaemApplication for test class com.ssafy.naem.NaemApplicationTests
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.0)
+
+2024-06-13T00:16:39.000+09:00  WARN 7980 --- [naem] [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/ckm79/.gradle/caches/modules-2/files-2.1/org.json/json/20240303/ebb88e8fb5122b7506d5cf1d69f1ccdb790d22a/json-20240303.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/ckm79/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2024-06-13T00:16:39.020+09:00  INFO 7980 --- [naem] [    Test worker] com.ssafy.naem.NaemApplicationTests      : Starting NaemApplicationTests using Java 17.0.11 with PID 7980 (started by ckm79 in C:\Users\ckm79\Downloads\naem (1)\naem)
+2024-06-13T00:16:39.021+09:00  INFO 7980 --- [naem] [    Test worker] com.ssafy.naem.NaemApplicationTests      : No active profile set, falling back to 1 default profile: "default"
+2024-06-13T00:16:39.809+09:00  INFO 7980 --- [naem] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-06-13T00:16:39.884+09:00  INFO 7980 --- [naem] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 66 ms. Found 2 JPA repository interfaces.
+2024-06-13T00:16:40.136+09:00  INFO 7980 --- [naem] [    Test worker] o.s.cloud.context.scope.GenericScope     : BeanFactory id=e14a500c-d82b-3505-b0f2-813e768d3dd5
+2024-06-13T00:16:40.528+09:00  INFO 7980 --- [naem] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-06-13T00:16:40.628+09:00  INFO 7980 --- [naem] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-06-13T00:16:40.663+09:00  INFO 7980 --- [naem] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-06-13T00:16:41.034+09:00  INFO 7980 --- [naem] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-06-13T00:16:41.062+09:00  INFO 7980 --- [naem] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-06-13T00:16:41.360+09:00  INFO 7980 --- [naem] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@65b2ee36
+2024-06-13T00:16:41.362+09:00  INFO 7980 --- [naem] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-06-13T00:16:41.401+09:00  WARN 7980 --- [naem] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-06-13T00:16:41.402+09:00  WARN 7980 --- [naem] [    Test worker] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2024-06-13T00:16:42.288+09:00  INFO 7980 --- [naem] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: alter table member modify column create_date datetime default CURRENT_TIMESTAMP
+Hibernate: alter table social_member modify column social_type enum ('GENERAL','KAKAO') not null
+2024-06-13T00:16:42.381+09:00  INFO 7980 --- [naem] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-06-13T00:16:43.000+09:00  WARN 7980 --- [naem] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-06-13T00:16:43.359+09:00  INFO 7980 --- [naem] [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2024-06-13T00:16:43.985+09:00  INFO 7980 --- [naem] [    Test worker] com.ssafy.naem.NaemApplicationTests      : Started NaemApplicationTests in 5.354 seconds (process running for 6.519)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
