@@ -38,7 +38,7 @@ public class KakaoController {
                 .client_secret(clientSecret)
                 .grant_type("authorization_code")
                 .code(code)
-                .redirect_uri("http://localhost:8080/oauth/kakao/callback")
+                .redirect_uri("http://localhost:5173/oauth/kakao/callback")
                 .build();
         KakaoTokenResponse kakaoToken = kakaoTokenClient.requestKakaoToken(contentType, kakaoTokenRequest);
         return ResponseEntity.status(HttpStatus.OK).body(kakaoToken);
