@@ -1,0 +1,38 @@
+version: '3'
+services:
+  database:
+    container_name: my_mysql
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=testdb
+      - MYSQL_ROOT_HOST=%
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./docker/data:/var/lib/mysql
+    restart: always
+    networks:
+      - test_network
+
+  application:
+    container_name: my_app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/testdb?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=1234
+    restart: always
+    depends_on:
+      - database
+    networks:
+      - test_network
+
+networks:
+  test_network:
+    driver: bridge
