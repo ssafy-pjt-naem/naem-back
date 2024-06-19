@@ -1,6 +1,11 @@
 package com.ssafy.naem.domain.board.service;
 
+import com.ssafy.naem.config.BaseException;
+import com.ssafy.naem.config.BaseResponseStatus;
 import com.ssafy.naem.domain.board.dto.request.BoardCreateRequest;
+import com.ssafy.naem.domain.board.dto.response.BoardsResponse;
+import com.ssafy.naem.domain.board.dto.response.BoardCreateResponse;
+import com.ssafy.naem.domain.board.dto.response.BoardResponse;
 import com.ssafy.naem.domain.board.entity.Board;
 import com.ssafy.naem.domain.board.entity.Status;
 import com.ssafy.naem.domain.board.repository.BoardRepository;
@@ -21,46 +26,71 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
-    public List<Board> getAllActiveBoards() {
-        List<Board> boardListResult = boardRepository.findAllByStatus(Status.STATUS_ACTIVE);
+    public BoardsResponse getAllActiveBoards() throws BaseException {
+        try {
+            List<Board> boardListResult = boardRepository.findAllByStatus(Status.STATUS_ACTIVE);
+            List<BoardResponse> boardInfos = boardListResult.stream()
+                    .map(BoardResponse::from)
+                    .toList();
 
-        return boardListResult;
+            return new BoardsResponse(boardInfos);
+        } catch (Exception exception) {
+            throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
+        }
     }
 
-    public List<Board> getAllBoards() {
-        List<Board> boardListResult = boardRepository.findAll();
+    public BoardsResponse getAllBoards() throws BaseException {
+        try {
+            List<Board> boardListResult = boardRepository.findAll();
+            List<BoardResponse> boardInfos = boardListResult.stream()
+                    .map(BoardResponse::from)
+                    .toList();
 
-        return boardListResult;
+            return new BoardsResponse(boardInfos);
+        } catch (Exception exception) {
+            throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
+        }
+
     }
 
     @Transactional
-    public Board createBoard(BoardCreateRequest boardCreateRequest) {
+    public BoardCreateResponse createBoard(BoardCreateRequest boardCreateRequest) throws BaseException {
         Board board = Board.builder()
                 .name(boardCreateRequest.name())
                 .build();
 
-        Board result = boardRepository.save(board);
+        try {
+            Board result = boardRepository.save(board);
+//            System.out.println(result.toString());
 
-        return result;
+            return new BoardCreateResponse(result.getId());
+        } catch (Exception exception) { // DB에 이상이 있는 경우 에러 메시지를 보냅니다.
+            throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
+        }
+
     }
 
     @Transactional
-    public void hideBoard(Long id) {
+    public void hideBoard(Long id) throws BaseException {
 
-        Optional<Board> foundBoard = boardRepository.findById(id);
-        if (foundBoard.isPresent()) {
-            Board board = foundBoard.get();
-            board.updateStatusToHidden();
+        Optional<Board> board = boardRepository.findById(id);
+        if (board.isEmpty()) {
+            throw new BaseException(BaseResponseStatus.BOARD_NOT_FOUND);
         }
+
+        Board foundBoard = board.get();
+        foundBoard.updateStatusToHidden();
     }
 
     @Transactional
-    public void deleteBoard(Long id) {
+    public void deleteBoard(Long id) throws BaseException {
 
-        Optional<Board> foundBoard = boardRepository.findById(id);
-        if (foundBoard.isPresent()) {
-            Board board = foundBoard.get();
-            board.updateStatusToDeleted();
+        Optional<Board> board = boardRepository.findById(id);
+        if (board.isEmpty()) {
+            throw new BaseException(BaseResponseStatus.BOARD_NOT_FOUND);
         }
+
+        Board foundBoard = board.get();
+        foundBoard.updateStatusToDeleted();
     }
 }

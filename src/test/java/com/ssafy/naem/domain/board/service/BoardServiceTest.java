@@ -1,6 +1,8 @@
 package com.ssafy.naem.domain.board.service;
 
+import com.ssafy.naem.config.BaseException;
 import com.ssafy.naem.domain.board.dto.request.BoardCreateRequest;
+import com.ssafy.naem.domain.board.dto.response.BoardCreateResponse;
 import com.ssafy.naem.domain.board.entity.Board;
 import com.ssafy.naem.domain.board.entity.Status;
 import com.ssafy.naem.domain.board.repository.BoardRepository;
@@ -76,22 +78,22 @@ class BoardServiceTest {
     }
 
     @Test
-    void createBoard() {
+    void createBoard() throws BaseException {
         // given
         BoardCreateRequest boardCreateRequest = new BoardCreateRequest("test게시판");
         Board board = Board.builder()
+                .id(1L)
                 .name(boardCreateRequest.name())
                 .build();
 
         when(boardRepository.save(any(Board.class))).thenReturn(board);
 
         // when
-        Board createdBoard = boardService.createBoard(boardCreateRequest);
-        System.out.println(createdBoard);
+        BoardCreateResponse createdBoard = boardService.createBoard(boardCreateRequest);
 
         // then
         assertNotNull(createdBoard);
-        assertEquals("test게시판", createdBoard.getName());
+        assertEquals(1L, createdBoard.id());
 
         verify(boardRepository, times(1)).save(any(Board.class));
 //        System.out.println(createdBoard);
@@ -109,7 +111,11 @@ class BoardServiceTest {
         when(boardRepository.findById(1L)).thenReturn(Optional.of(board));
 
         // when
-        boardService.hideBoard(1L);
+        try {
+            boardService.hideBoard(1L);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         // then
         assertThat(board.getStatus()).isEqualTo(Status.STATUS_HIDDEN);
@@ -128,7 +134,11 @@ class BoardServiceTest {
         when(boardRepository.findById(1L)).thenReturn(Optional.of(board));
 
         // when
-        boardService.deleteBoard(1L);
+        try {
+            boardService.deleteBoard(1L);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         // then
         assertThat(board.getStatus()).isEqualTo(Status.STATUS_DELETED);

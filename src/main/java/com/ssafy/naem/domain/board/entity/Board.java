@@ -23,6 +23,7 @@ public class Board {
     private LocalDateTime updated;
     @Column
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private Status status = Status.STATUS_ACTIVE;
 
     @PrePersist
