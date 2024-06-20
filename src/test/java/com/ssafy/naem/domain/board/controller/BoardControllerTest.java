@@ -41,7 +41,7 @@ class BoardControllerTest {
         Long id = newBoard.getId();
         String boardName = newBoard.getName();
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/boards/")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/boards")
                 .content("{\"name\": \"" + boardName + "\"}")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -56,7 +56,7 @@ class BoardControllerTest {
 
     @Test
     void getAllBoards() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/boards/")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/boards")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .characterEncoding(StandardCharsets.UTF_8.displayName());
@@ -84,7 +84,7 @@ class BoardControllerTest {
 
     @Test
     void hideBoard() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/boards/1/hide")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/boards/17/hide")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .characterEncoding(StandardCharsets.UTF_8.displayName());
@@ -96,7 +96,7 @@ class BoardControllerTest {
 
     @Test
     void deleteBoard() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/boards/1/delete")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/boards/16/delete")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .characterEncoding(StandardCharsets.UTF_8.displayName());

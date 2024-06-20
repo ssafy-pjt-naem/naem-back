@@ -3,6 +3,7 @@ package com.ssafy.naem.domain.board.controller;
 import com.ssafy.naem.config.BaseException;
 import com.ssafy.naem.config.BaseResponse;
 import com.ssafy.naem.config.BaseResponseStatus;
+import com.ssafy.naem.domain.board.dto.request.BoardChangeNameRequest;
 import com.ssafy.naem.domain.board.dto.request.BoardCreateRequest;
 import com.ssafy.naem.domain.board.dto.response.BoardsResponse;
 import com.ssafy.naem.domain.board.dto.response.BoardCreateResponse;
@@ -22,7 +23,7 @@ public class BoardController {
     }
 
     @ResponseBody
-    @PostMapping("/")
+    @PostMapping("")
     public BaseResponse<BoardCreateResponse> createBoard(@RequestBody BoardCreateRequest boardCreateRequest) {
         try {
             BoardCreateResponse createBoardResponse = boardService.createBoard(boardCreateRequest);
@@ -34,7 +35,7 @@ public class BoardController {
     }
 
     @ResponseBody
-    @GetMapping("/")
+    @GetMapping("")
     public BaseResponse<BoardsResponse> getAllBoards() {
         try {
             return new BaseResponse<>(boardService.getAllBoards());
@@ -48,6 +49,19 @@ public class BoardController {
     public BaseResponse<BoardsResponse> getAllActiveBoards() {
         try {
             return new BaseResponse<>(boardService.getAllActiveBoards());
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
+    @ResponseBody
+    @PatchMapping("/{id}")
+    public BaseResponse<Object> changeBoardName(@PathVariable("id") Long id, @RequestBody BoardChangeNameRequest boardChangeNameRequest) {
+        System.out.println("hi");
+        try {
+            boardService.changeBoardName(id, boardChangeNameRequest);
+
+            return new BaseResponse<>(BaseResponseStatus.SUCCESS);
         } catch (BaseException exception) {
             return new BaseResponse<>(exception.getStatus());
         }

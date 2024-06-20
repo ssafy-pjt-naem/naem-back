@@ -9,9 +9,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
+    Optional<Board> findByIdAndStatusNot(Long id, Status status);
+
     List<Board> findAllByStatus(Status status);
+
+    Optional<Board> findByNameAndStatusNot(String name, Status status);
 
 //    @Modifying
 //    @Transactional

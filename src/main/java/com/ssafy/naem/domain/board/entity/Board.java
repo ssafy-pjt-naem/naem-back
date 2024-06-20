@@ -48,6 +48,13 @@ public class Board {
                 '}';
     }
 
+    public void changeName(String newName) {
+        this.name = newName;
+    }
+
+    public void updateStatusToActive() {
+        this.status = Status.STATUS_ACTIVE;
+    }
     public void updateStatusToHidden() {
         this.status = Status.STATUS_HIDDEN;
     }

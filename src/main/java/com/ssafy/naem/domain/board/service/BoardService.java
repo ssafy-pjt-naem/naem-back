@@ -2,6 +2,7 @@ package com.ssafy.naem.domain.board.service;
 
 import com.ssafy.naem.config.BaseException;
 import com.ssafy.naem.config.BaseResponseStatus;
+import com.ssafy.naem.domain.board.dto.request.BoardChangeNameRequest;
 import com.ssafy.naem.domain.board.dto.request.BoardCreateRequest;
 import com.ssafy.naem.domain.board.dto.response.BoardsResponse;
 import com.ssafy.naem.domain.board.dto.response.BoardCreateResponse;
@@ -55,12 +56,17 @@ public class BoardService {
 
     @Transactional
     public BoardCreateResponse createBoard(BoardCreateRequest boardCreateRequest) throws BaseException {
-        Board board = Board.builder()
+        Board newBoard = Board.builder()
                 .name(boardCreateRequest.name())
                 .build();
 
+        Optional<Board> board = boardRepository.findByNameAndStatusNot(newBoard.getName(), Status.STATUS_DELETED);
+        if (board.isPresent()) {
+            throw new BaseException(BaseResponseStatus.BOARD_ALREADY_EXISTS);
+        }
+
         try {
-            Board result = boardRepository.save(board);
+            Board result = boardRepository.save(newBoard);
 //            System.out.println(result.toString());
 
             return new BoardCreateResponse(result.getId());
@@ -71,26 +77,47 @@ public class BoardService {
     }
 
     @Transactional
-    public void hideBoard(Long id) throws BaseException {
+    public void changeBoardName(Long id, BoardChangeNameRequest boardChangeNameRequest) throws BaseException {
+        String newName = boardChangeNameRequest.name();
 
-        Optional<Board> board = boardRepository.findById(id);
+        Optional<Board> board = boardRepository.findByNameAndStatusNot(newName, Status.STATUS_DELETED);
+        if (board.isPresent()) {
+            throw new BaseException(BaseResponseStatus.BOARD_ALREADY_EXISTS);
+        }
+
+        board = boardRepository.findByIdAndStatusNot(id, Status.STATUS_DELETED);
         if (board.isEmpty()) {
             throw new BaseException(BaseResponseStatus.BOARD_NOT_FOUND);
         }
 
         Board foundBoard = board.get();
+
+        foundBoard.changeName(newName);
+    }
+
+    @Transactional
+    public void hideBoard(Long id) throws BaseException {
+
+        Optional<Board> board = boardRepository.findByIdAndStatusNot(id, Status.STATUS_DELETED);
+        if (board.isEmpty()) {
+            throw new BaseException(BaseResponseStatus.BOARD_NOT_FOUND);
+        }
+
+        Board foundBoard = board.get();
+
         foundBoard.updateStatusToHidden();
     }
 
     @Transactional
     public void deleteBoard(Long id) throws BaseException {
 
-        Optional<Board> board = boardRepository.findById(id);
+        Optional<Board> board = boardRepository.findByIdAndStatusNot(id, Status.STATUS_DELETED);
         if (board.isEmpty()) {
             throw new BaseException(BaseResponseStatus.BOARD_NOT_FOUND);
         }
 
         Board foundBoard = board.get();
+
         foundBoard.updateStatusToDeleted();
     }
 }

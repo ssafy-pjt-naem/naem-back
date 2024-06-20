@@ -30,7 +30,7 @@ public enum BaseResponseStatus {
     POST_USERS_INVALID_EMAIL(false, 2016, "이메일 형식을 확인해주세요."),
     POST_USERS_EXISTS_EMAIL(false,2017,"중복된 이메일입니다."),
 
-
+    // boards
 
     /**
      * 3000 : Response 오류
@@ -42,8 +42,10 @@ public enum BaseResponseStatus {
     DUPLICATED_EMAIL(false, 3013, "중복된 이메일입니다."),
     FAILED_TO_LOGIN(false,3014,"없는 아이디거나 비밀번호가 틀렸습니다."),
 
-    // /boards
+    // boards
     BOARD_NOT_FOUND(false, 3020, "해당 게시판을 찾을 수 없습니다."),
+    BOARD_ALREADY_EXISTS(false, 3021, "중복된 이름의 게시판이 존재합니다."),
+    BOARD_DELETED (false, 3022, "삭제된 게시판입니다."),
 
     /**
      * 4000 : Database, Server 오류
