@@ -22,7 +22,7 @@ public class BoardController {
     }
 
     @ResponseBody
-    @PostMapping("/new")
+    @PostMapping("/")
     public BaseResponse<BoardCreateResponse> createBoard(@RequestBody BoardCreateRequest boardCreateRequest) {
         try {
             BoardCreateResponse createBoardResponse = boardService.createBoard(boardCreateRequest);
@@ -54,7 +54,7 @@ public class BoardController {
     }
 
     @ResponseBody
-    @PatchMapping("/hide/{id}")
+    @PatchMapping("/{id}/hide")
     public BaseResponse<Object> hideBoard(@PathVariable("id") Long id) {
         try {
             boardService.hideBoard(id);
@@ -66,7 +66,7 @@ public class BoardController {
     }
 
     @ResponseBody
-    @PostMapping("/delete/{id}")
+    @PatchMapping("/{id}/delete")
     public BaseResponse<Object> deleteBoard(@PathVariable("id") Long id) {
         try {
             boardService.deleteBoard(id);
