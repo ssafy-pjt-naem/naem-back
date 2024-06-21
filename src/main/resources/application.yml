@@ -16,3 +16,8 @@ spring:
     show-sql: true
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
