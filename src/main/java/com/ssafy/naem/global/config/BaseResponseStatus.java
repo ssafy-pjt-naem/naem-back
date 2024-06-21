@@ -1,4 +1,4 @@
-package com.ssafy.naem.config;
+package com.ssafy.naem.global.config;
 
 import lombok.Getter;
 

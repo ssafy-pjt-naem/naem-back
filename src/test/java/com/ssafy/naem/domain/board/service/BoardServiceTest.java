@@ -1,6 +1,6 @@
 package com.ssafy.naem.domain.board.service;
 
-import com.ssafy.naem.config.BaseException;
+import com.ssafy.naem.global.config.BaseException;
 import com.ssafy.naem.domain.board.dto.request.BoardCreateRequest;
 import com.ssafy.naem.domain.board.dto.response.BoardCreateResponse;
 import com.ssafy.naem.domain.board.entity.Board;
@@ -27,11 +27,6 @@ class BoardServiceTest {
 
     @Mock
     private BoardRepository boardRepository;
-
-//    @BeforeEach
-//    void setUp(){
-//        MockitoAnnotations.openMocks(this);
-//    }
 
     @Test
     void getAllActiveBoards() {
@@ -108,7 +103,7 @@ class BoardServiceTest {
                 .status(Status.STATUS_ACTIVE)
                 .build();
 
-        when(boardRepository.findById(1L)).thenReturn(Optional.of(board));
+        when(boardRepository.findByIdAndStatus(1L, Status.STATUS_ACTIVE)).thenReturn(Optional.of(board));
 
         // when
         try {
@@ -119,7 +114,6 @@ class BoardServiceTest {
 
         // then
         assertThat(board.getStatus()).isEqualTo(Status.STATUS_HIDDEN);
-//        System.out.println(board.getStatus());
     }
 
     @Test
@@ -131,7 +125,7 @@ class BoardServiceTest {
                 .status(Status.STATUS_ACTIVE)
                 .build();
 
-        when(boardRepository.findById(1L)).thenReturn(Optional.of(board));
+        when(boardRepository.findByIdAndStatusNot(1L, Status.STATUS_DELETED)).thenReturn(Optional.of(board));
 
         // when
         try {

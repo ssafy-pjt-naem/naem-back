@@ -12,19 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
+    Optional<Board> findByIdAndStatus(Long id, Status status);
+
     Optional<Board> findByIdAndStatusNot(Long id, Status status);
 
     List<Board> findAllByStatus(Status status);
 
     Optional<Board> findByNameAndStatusNot(String name, Status status);
 
-//    @Modifying
-//    @Transactional
-//    @Query("UPDATE Board b SET b.status = 'STATUS_HIDDEN', b.updated = CURRENT_TIMESTAMP WHERE b.id = :id")
-//    int hideBoard(@Param("id") Long id);
-//
-//    @Modifying
-//    @Transactional
-//    @Query("UPDATE Board b SET b.status = 'STATUS_DELETED', b.updated = CURRENT_TIMESTAMP WHERE b.id = :id")
-//    int deleteBoard(@Param("id") Long id);
 }

@@ -1,8 +1,6 @@
 package com.ssafy.naem.domain.board.controller;
 
 import com.ssafy.naem.domain.board.entity.Board;
-import com.ssafy.naem.domain.board.entity.Status;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -14,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.nio.charset.StandardCharsets;
 
@@ -30,14 +27,9 @@ class BoardControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-//    @BeforeEach
-//    void setUp() {
-//        mockMvc = MockMvcBuilders.standaloneSetup(BoardController.class).build();
-//    }
-
     @Test
     void createBoard() throws Exception {
-        Board newBoard = Board.builder().name("test1").build();
+        Board newBoard = Board.builder().name("testtt").build();
         Long id = newBoard.getId();
         String boardName = newBoard.getName();
 
@@ -84,7 +76,7 @@ class BoardControllerTest {
 
     @Test
     void hideBoard() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/boards/17/hide")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/boards/18/hide")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .characterEncoding(StandardCharsets.UTF_8.displayName());
@@ -96,7 +88,7 @@ class BoardControllerTest {
 
     @Test
     void deleteBoard() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/boards/16/delete")
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/boards/19/delete")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .characterEncoding(StandardCharsets.UTF_8.displayName());
