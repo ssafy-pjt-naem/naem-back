@@ -7,9 +7,10 @@ spring:
     username: ${USER_NAME}
     password: ${USER_PASSWORD}
   jpa:
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
-        ddl-auto: update
         globally_quoted_identifiers: true
         format_sql: true
     open-in-view: true
