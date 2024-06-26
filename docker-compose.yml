@@ -27,7 +27,6 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/testdb?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=1234
-    restart: always
     depends_on:
       - database
     networks:
