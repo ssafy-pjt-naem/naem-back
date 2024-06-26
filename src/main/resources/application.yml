@@ -1,27 +1,28 @@
 spring:
   config:
-    import:
-      privacy.yml
-  application:
-    name:
-      naem
+    import: optional:file:.env[.properties]
   datasource:
-    url: jdbc:mysql://${db.host}:${db.port}/${db.database}?serverTimeZone=Asia/Seoul&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${db.username}
-    password: ${db.password}
+    url: jdbc:mysql://${HOST}:${PORT}/${DATABASE_NAME}?${OPTIONS}
+    username: ${USER_NAME}
+    password: ${USER_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
-    generate-ddl: false
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+        format_sql: true
+    open-in-view: true
     show-sql: true
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    properties:
-      hibernate:
-        show_sql: true
-        use_sql_comments: true
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+    
 logging:
   level:
     com.app: debug
