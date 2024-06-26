@@ -35,9 +35,9 @@ feign:
         readTimeout: 5000
 
 jwt:
-  secret: ${jwt.secret}
+  secret: ${JWT_SECRET}
 
 kakao:
   client:
-    id: ${client.id}
-    secret: ${client.secret}
+    id: ${CLIENT_ID}
+    secret: ${CLIENT_SECRET}
