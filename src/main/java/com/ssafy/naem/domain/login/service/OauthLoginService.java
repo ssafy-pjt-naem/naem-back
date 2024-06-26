@@ -64,7 +64,7 @@ public class OauthLoginService {
             oauthMember.updateRefreshToken(jwtTokenDto.getRefreshToken());
         }
 
-        return OauthLoginResponse.of(jwtTokenDto);
+        return OauthLoginResponse.from(jwtTokenDto);
     }
 
 }

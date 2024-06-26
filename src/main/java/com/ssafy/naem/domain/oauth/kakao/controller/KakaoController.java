@@ -31,7 +31,7 @@ public class KakaoController {
     }
 
     @GetMapping(path = "/oauth/kakao/callback", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<KakaoTokenResponse> loginCallback(@RequestParam("code") String code) {
+    public @ResponseBody ResponseEntity<KakaoTokenResponse> loginCallback(String code) {
         String contentType = "application/x-www-form-urlencoded;charset=utf-8";
         KakaoTokenRequest kakaoTokenRequest = KakaoTokenRequest.builder()
                 .client_id(clientId)

@@ -7,7 +7,6 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,7 +24,7 @@ public class OauthLoginResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDate refreshTokenExpireTime;
 
-    public static OauthLoginResponse of(JwtTokenDto jwtTokenDto) {
+    public static OauthLoginResponse from(JwtTokenDto jwtTokenDto) {
         return OauthLoginResponse.builder()
                 .grantType(jwtTokenDto.getGrantType())
                 .accessToken(jwtTokenDto.getAccessToken())
