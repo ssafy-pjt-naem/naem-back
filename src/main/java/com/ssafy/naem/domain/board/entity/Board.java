@@ -1,9 +1,11 @@
 package com.ssafy.naem.domain.board.entity;
 
+import com.ssafy.naem.domain.feed.entity.Feed;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,16 +17,23 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime created;
-    @Column(nullable=true)
+
+    @Column(nullable = true)
     private LocalDateTime updated;
+
     @Column
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private Status status = Status.STATUS_ACTIVE;
+
+    @OneToMany(mappedBy = "board")
+    List<Feed> feedList;
 
     @PrePersist
     protected void onCreate() {

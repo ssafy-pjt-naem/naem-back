@@ -47,6 +47,10 @@ public enum BaseResponseStatus {
     BOARD_ALREADY_EXISTS(false, 3021, "중복된 이름의 게시판이 존재합니다."),
     BOARD_DELETED (false, 3022, "삭제된 게시판입니다."),
 
+    // feeds
+    FEED_NOT_FOUND(false, 3021, "해당 게시글을 찾을 수 없습니다."),
+    FEED_DELETED(false, 3022, "삭제된 게시글입니다."),
+
     /**
      * 4000 : Database, Server 오류
      */
