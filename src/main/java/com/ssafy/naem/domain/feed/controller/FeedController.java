@@ -7,12 +7,16 @@ import com.ssafy.naem.domain.feed.dto.request.FeedCreateRequest;
 import com.ssafy.naem.domain.feed.dto.response.FeedCreateResponse;
 import com.ssafy.naem.domain.feed.dto.response.FeedResponse;
 import com.ssafy.naem.domain.feed.dto.response.FeedsResponse;
+import com.ssafy.naem.domain.feed.entity.Feed;
 import com.ssafy.naem.domain.feed.service.FeedService;
 import com.ssafy.naem.global.config.BaseResponse;
 import com.ssafy.naem.global.config.BaseResponseStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,20 +43,21 @@ public class FeedController {
 
     @ResponseBody
     @GetMapping("")
-    @Operation(summary = "Get All Feeds By Board_Id", description = "선택한 게시판의 게시글 목록을 불러온다.")
-    public BaseResponse<FeedsResponse> getAllFeedsByBoard(@RequestBody BoardFeedsGetRequest boardFeedsGetRequest) {
+    @Operation(summary = "Get All Feeds By Board_Id", description = "선택한 게시판의 게시글 목록을 불러온다. (페이징 적용시, page, size를 파라미터로 추가 (default: page=0&size=5))")
+    public BaseResponse<FeedsResponse> getAllFeedsByBoard(@RequestBody BoardFeedsGetRequest boardFeedsGetRequest,
+                                                          @PageableDefault(page=0, size = 5) Pageable pageable) {
 
-        FeedsResponse getAllFeedsByBoardResponse = feedService.getAllFeedsByBoardId(boardFeedsGetRequest);
+        FeedsResponse getAllFeedsPageByBoardResponse = feedService.getAllFeedsByBoardId(boardFeedsGetRequest, pageable);
 
-        return new BaseResponse<>(getAllFeedsByBoardResponse);
+        return new BaseResponse<>(getAllFeedsPageByBoardResponse);
     }
 
     @ResponseBody
     @GetMapping("/hidden")
-    @Operation(summary = "Get All Hidden Feeds", description = "숨김 처리한 게시글 목록을 불러온다.")
-    public BaseResponse<FeedsResponse> getAllHiddenFeeds() {
+    @Operation(summary = "Get All Hidden Feeds", description = "숨김 처리한 게시글 목록을 불러온다. (페이징 적용시, page, size를 파라미터로 추가 (default: page=0&size=5))")
+    public BaseResponse<FeedsResponse> getAllHiddenFeeds(@PageableDefault(page=0, size = 5) Pageable pageable) {
 
-        FeedsResponse getAllHiddenFeedsResponse = feedService.getAllHiddenFeeds();
+        FeedsResponse getAllHiddenFeedsResponse = feedService.getAllHiddenFeeds(pageable);
 
         return new BaseResponse<>(getAllHiddenFeedsResponse);
     }

@@ -15,6 +15,8 @@ import com.ssafy.naem.domain.feed.repository.FeedRepository;
 import com.ssafy.naem.global.config.BaseException;
 import com.ssafy.naem.global.config.BaseResponseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,24 +44,18 @@ public class FeedService {
         return FeedResponse.from(foundFeed);
     }
 
-    public FeedsResponse getAllFeedsByBoardId(BoardFeedsGetRequest boardFeedsGetRequest) {
+    public FeedsResponse getAllFeedsByBoardId(BoardFeedsGetRequest boardFeedsGetRequest, Pageable pageable) {
 
-        List<Feed> feedListResult = feedRepository.findAllByBoard_idAndStatus(boardFeedsGetRequest.boardId(), Status.STATUS_ACTIVE);
-        List<FeedResponse> feedInfos = feedListResult.stream()
-                .map(FeedResponse::from)
-                .toList();
+        Page<Feed> feedPageListResult = feedRepository.findAllByBoard_idAndStatusOrderByCreatedDesc(boardFeedsGetRequest.boardId(), Status.STATUS_ACTIVE, pageable);
 
-        return new FeedsResponse(feedInfos);
+        return new FeedsResponse(feedPageListResult);
     }
 
-    public FeedsResponse getAllHiddenFeeds() {
+    public FeedsResponse getAllHiddenFeeds(Pageable pageable) {
 
-        List<Feed> feedListResult = feedRepository.findAllByStatus(Status.STATUS_HIDDEN);
-        List<FeedResponse> feedInfos = feedListResult.stream()
-                .map(FeedResponse::from)
-                .toList();
+        Page<Feed> feedListResult = feedRepository.findAllByStatusOrderByCreatedDesc(Status.STATUS_HIDDEN, pageable);
 
-        return new FeedsResponse(feedInfos);
+        return new FeedsResponse(feedListResult);
     }
 
     @Transactional
@@ -108,10 +104,6 @@ public class FeedService {
 
     @Transactional
     public void changeFeedVisibility(Long id) {
-//        Optional<Feed> foundFeed = feedRepository.findById(id);
-//        if (foundFeed.isEmpty()) {
-//            throw new BaseException(BaseResponseStatus.FEED_NOT_FOUND);
-//        }
 
         Feed foundFeed = feedRepository.findByIdAndStatusNot(id, Status.STATUS_DELETED)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.FEED_NOT_FOUND));
